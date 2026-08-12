@@ -1,0 +1,21 @@
+Contenidos 
+
+    Introducción a los testbenches y fundamentos de VHDL para verificación 
+
+    Subprogramas, bibliotecas y manejo de archivos 
+
+    Modelos basados en transacciones (Transaction-Based Models, TBM) y Bus Functional Models (BFM) 
+
+    Componentes de una arquitectura de verificación basada en transacciones 
+
+    Estructuras de datos para la verificación (records, tipos protegidos, scoreboards, colas, etc.) 
+
+    Generación de pruebas dirigidas, algorítmicas y aleatorias restringidas 
+
+    Cobertura funcional y métricas de verificación 
+
+    Sincronización, temporización y ejecución de modelos 
+
+    Técnicas avanzadas de aleatorización y cobertura 
+
+    Planificación de la verificación y desarrollo de planes de prueba 
