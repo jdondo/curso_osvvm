@@ -12,13 +12,9 @@ package ram_pkg is
     );
 
     type ram_transaction_t is record
-
         operation : ram_operation_t;
-
         address   : std_logic_vector(ADDR_WIDTH-1 downto 0);
-
         data      : std_logic_vector(DATA_WIDTH-1 downto 0);
-
     end record;
 
 end package;
