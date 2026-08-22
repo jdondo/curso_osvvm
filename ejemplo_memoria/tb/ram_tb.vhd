@@ -36,11 +36,8 @@ begin
     begin
 
         reset <= '1';
-
         wait for 50 ns;
-
         reset <= '0';
-
         wait;
 
     end process;
@@ -53,29 +50,18 @@ begin
     DUT : entity work.ram
 
         generic map (
-
             ADDR_WIDTH => ADDR_WIDTH,
-
             DATA_WIDTH => DATA_WIDTH
-
         )
 
         port map (
-
             clk     => clk,
-
             reset   => reset,
-
             wr_en   => wr_en,
-
             rd_en   => rd_en,
-
             addr    => addr,
-
             wr_data => wr_data,
-
             rd_data => rd_data
-
         );
 
 
@@ -86,21 +72,13 @@ begin
     TEST : entity work.ram_test
 
         port map (
-
             clk     => clk,
-
             reset   => reset,
-
             wr_en   => wr_en,
-
             rd_en   => rd_en,
-
             addr    => addr,
-
             wr_data => wr_data,
-
             rd_data => rd_data
-
         );
 
 
