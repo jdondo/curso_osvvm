@@ -3,7 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library osvvm;
-
 use osvvm.AlertLogPkg.all;
 use osvvm.MemoryPkg.all;
 
@@ -14,49 +13,27 @@ library std;
 use std.env.all;
 
 entity ram_test is
-
     port (
-
         clk   : in std_logic;
         reset : in std_logic;
-
         wr_en : out std_logic;
         rd_en : out std_logic;
-
-        addr :
-            out std_logic_vector(ADDR_WIDTH-1 downto 0);
-
-        wr_data :
-            out std_logic_vector(DATA_WIDTH-1 downto 0);
-
-        rd_data :
-            in std_logic_vector(DATA_WIDTH-1 downto 0)
-
+        addr  : out std_logic_vector(ADDR_WIDTH-1 downto 0);
+        wr_data : out std_logic_vector(DATA_WIDTH-1 downto 0);
+        rd_data : in std_logic_vector(DATA_WIDTH-1 downto 0)
     );
 
 end entity;
 
 
 architecture test of ram_test is
-
 begin
-
     TestProc : process
-
         variable MemoryID : MemoryIDType;
-
-        variable expected :
-            std_logic_vector(DATA_WIDTH-1 downto 0);
-
-        variable actual :
-            std_logic_vector(DATA_WIDTH-1 downto 0);
-
-        variable address :
-            std_logic_vector(ADDR_WIDTH-1 downto 0);
-
-        variable data :
-            std_logic_vector(DATA_WIDTH-1 downto 0);
-
+        variable expected : std_logic_vector(DATA_WIDTH-1 downto 0);
+        variable actual : std_logic_vector(DATA_WIDTH-1 downto 0);
+        variable address : std_logic_vector(ADDR_WIDTH-1 downto 0);
+        variable data : std_logic_vector(DATA_WIDTH-1 downto 0);
     begin
 
         ------------------------------------------------
@@ -75,9 +52,7 @@ begin
         ------------------------------------------------
 
         wait until reset = '0';
-
         wait until rising_edge(clk);
-
 
         ------------------------------------------------
         -- TEST 1
@@ -85,23 +60,10 @@ begin
         ------------------------------------------------
 
         Report("TEST 1: Directed writes");
-
-
         for i in 0 to 15 loop
 
-            address :=
-                std_logic_vector(
-                    to_unsigned(i, ADDR_WIDTH)
-                );
-
-            data :=
-                std_logic_vector(
-                    to_unsigned(
-                        i * 16#1111#,
-                        DATA_WIDTH
-                    )
-                );
-
+            address := std_logic_vector(to_unsigned(i, ADDR_WIDTH));
+            data := std_logic_vector(to_unsigned(i * 16#1111#,DATA_WIDTH));
 
             -- Write DUT
 
@@ -115,7 +77,6 @@ begin
                 data    => data
             );
 
-
             -- Write reference model
 
             MemWrite(
@@ -126,7 +87,6 @@ begin
 
         end loop;
 
-
         ------------------------------------------------
         -- TEST 2
         -- Read and compare
@@ -134,14 +94,8 @@ begin
 
         Report("TEST 2: Directed reads");
 
-
         for i in 0 to 15 loop
-
-            address :=
-                std_logic_vector(
-                    to_unsigned(i, ADDR_WIDTH)
-                );
-
+            address := std_logic_vector(to_unsigned(i, ADDR_WIDTH));
 
             -- Read DUT
 
@@ -156,7 +110,6 @@ begin
                 data    => actual
             );
 
-
             -- Read reference
 
             MemRead(
@@ -164,7 +117,6 @@ begin
                 address,
                 expected
             );
-
 
             -- Compare
 
@@ -176,7 +128,6 @@ begin
 
         end loop;
 
-
         ------------------------------------------------
         -- TEST 3
         -- Write all memory with address pattern
@@ -184,18 +135,9 @@ begin
 
         Report("TEST 3: Address pattern");
 
-
         for i in 0 to 1023 loop
-
-            address :=
-                std_logic_vector(
-                    to_unsigned(i, ADDR_WIDTH)
-                );
-
-            data :=
-                std_logic_vector(
-                    to_unsigned(i, DATA_WIDTH)
-                );
+            address := std_logic_vector(to_unsigned(i, ADDR_WIDTH));
+            data := std_logic_vector(to_unsigned(i, DATA_WIDTH));
 
 
             RamWrite(
@@ -225,13 +167,8 @@ begin
 
         Report("TEST 4: Read entire memory");
 
-
         for i in 0 to 1023 loop
-
-            address :=
-                std_logic_vector(
-                    to_unsigned(i, ADDR_WIDTH)
-                );
+            address := std_logic_vector(to_unsigned(i, ADDR_WIDTH));
 
 
             RamRead(
@@ -269,33 +206,17 @@ begin
 
         Report("TEST 5: Random memory operations");
 
-
         for i in 0 to 999 loop
-
             -- Deterministic pseudo-random address
-            address :=
-                std_logic_vector(
-                    to_unsigned(
-                        (i * 37) mod 1024,
-                        ADDR_WIDTH
-                    )
-                );
+            address := std_logic_vector(to_unsigned((i * 37) mod 1024, ADDR_WIDTH));
 
             -- Deterministic pseudo-random data
-            data :=
-                std_logic_vector(
-                    to_unsigned(
-                        i * 12345,
-                        DATA_WIDTH
-                    )
-                );
+            data := std_logic_vector(to_unsigned(i * 12345, DATA_WIDTH));
 
             if (i mod 2) = 0 then
-
                 ------------------------------------------------
                 -- WRITE
                 ------------------------------------------------
-
                 RamWrite(
                     clk     => clk,
                     wr_en   => wr_en,
@@ -306,19 +227,15 @@ begin
                     data    => data
                 );
 
-
                 MemWrite(
                     MemoryID,
                     address,
                     data
                 );
-
             else
-
                 ------------------------------------------------
                 -- READ
                 ------------------------------------------------
-
                 RamRead(
                     clk     => clk,
                     wr_en   => wr_en,
@@ -356,9 +273,7 @@ begin
         Report("======================================");
         Report("RAM TEST COMPLETE");
         Report("======================================");
-
         ReportAlerts;
-
         stop;
     end process;
 
