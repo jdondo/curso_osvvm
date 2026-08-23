@@ -40,7 +40,7 @@ begin
         -- Create reference memory
         ------------------------------------------------
 
-        MemoryID := NewID(
+        MemoryID := NewID(                      --proviene de MemoryGenericPkg.vhd llamado por MemoryPkg
             Name      => "RAM_REFERENCE",
             AddrWidth => ADDR_WIDTH,
             DataWidth => DATA_WIDTH
@@ -67,7 +67,7 @@ begin
 
             -- Write DUT
 
-            RamWrite(
+            RamWrite(                                 --usando las transacciones desde ram.bfm
                 clk     => clk,
                 wr_en   => wr_en,
                 rd_en   => rd_en,
@@ -79,7 +79,7 @@ begin
 
             -- Write reference model
 
-            MemWrite(
+            MemWrite(                                 --usando las transacciones desde ram.bfm
                 MemoryID,
                 address,
                 data
@@ -120,7 +120,7 @@ begin
 
             -- Compare
 
-            AffirmIfEqual(
+            AffirmIfEqual(                 -- del AlertLogPkg.vhd
                 actual,
                 expected,
                 "RAM read"
