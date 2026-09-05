@@ -4,27 +4,18 @@
 # ============================================================
 
 # ------------------------------------------------------------
-# Paths
-# ------------------------------------------------------------
-
-set OSVVM_ROOT "/home/julio/osvvm/OsvvmLibraries"
-set OSVVM_SCRIPT_DIR "$OSVVM_ROOT/Scripts"
-
-# ------------------------------------------------------------
 # Start OSVVM / Questa environment
 # ------------------------------------------------------------
 
-cd "$OSVVM_SCRIPT_DIR"
-
-source "$OSVVM_SCRIPT_DIR/StartQuesta.tcl"
-source "$OSVVM_SCRIPT_DIR/VendorScripts_Questa.tcl"
-source "$OSVVM_SCRIPT_DIR/StartUp.tcl"
+source "../../../OsvvmLibraries/Scripts/StartQuesta.tcl"
+source "../../../OsvvmLibraries/Scripts/VendorScripts_Questa.tcl"
+source "../../../OsvvmLibraries/Scripts/StartUp.tcl"
 
 # ------------------------------------------------------------
 # Compile OSVVM
 # ------------------------------------------------------------
 
-cd "$OSVVM_ROOT/osvvm"
+ cd "../../../OsvvmLibraries/osvvm"
 
 source "osvvm.pro"
 
