@@ -23,7 +23,7 @@ source "osvvm.pro"
 # Create / select working directory
 # ------------------------------------------------------------
 
-cd "/home/julio/osvvm/curso/mem/sim"
+cd "../../curso/mem/sim"
 
 # ------------------------------------------------------------
 # Compile RAM design
