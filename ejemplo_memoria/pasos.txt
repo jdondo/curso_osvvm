@@ -1,15 +1,23 @@
-Pasos para ejemplo de verificacion de memora con osvvm
+Pasos para ejemplo de verificacion de memoria con osvvm
 
-1- crear el pkg con las constantes de tamaño de buses
-2- crear el bfm con los procedures ramwrite y ramread
-3- crear el test creando una entidad (igual que la del rtl) y usando el memoryPkg y el AlertLogPkg.vhd de osvvm
-4- crear el tb instanciando la entidad del dut y la del test
-5- ejecutar los scripts tcl necesarios para el simulador de OsvvmLibraries/Scripts/
+1- Crear el directorio curso/ dentro de osvvm, al mismo nivel que el directorio OsvvmLibraries
+2- Crear el directorio mem/ en curso/
+3- Crear los directorios rtl/ sim/ tb/ dentro de mem/
+4- En rtl/ guardar el ram.vhd (diseño a verificar)
+5- crear el ram_pkg.vhd con las constantes de tamaño de buses, guardarlo en tb/
+6- crear el ram_bfm.vhd con los procedures ramwrite y ramread, guardarlo en tb/
+7- crear el ram_test.vhd creando una entidad (igual que la del rtl), llamando a la library osvvm y dentro de esta a memoryPkg y AlertLogPkg , guardarlo en tb/ 
+8- crear el tb instanciando la entidad del dut y la del test, guardarlo en tb/
+9- Generar el compile.do para questa incluyendo los scripts tcl necesarios para el simulador de OsvvmLibraries/Scripts/
     en este caso en el compile.do se coloca
-    source "$OSVVM_SCRIPT_DIR/StartQuesta.tcl"
-    source "$OSVVM_SCRIPT_DIR/VendorScripts_Questa.tcl"
-    source "$OSVVM_SCRIPT_DIR/StartUp.tcl"
-6- agregar en la compilacion el script osvvm.pro ubicado en OsvvmLibraries/osvvm/
-    este archivo se encarga de compilar laqs librerias de osvvm (MemoryPkg.vhd, MemorySupportPkg.vhd. AlertLogPkg.vhd entre otros)
-7- crear el directorio de simulacion y compilar los rtl alli y simular
+        source "../../../OsvvmLibraries/Scripts/StartQuesta.tcl"
+        source "../../../OsvvmLibraries/Scripts/VendorScripts_Questa.tcl"
+        source "../../../OsvvmLibraries/Scripts/StartUp.tcl"
+10- agregar en la compilacion el script osvvm.pro ubicado en OsvvmLibraries/osvvm/ 
+    hacerlo ubicandose primero en el directorio correspondiente porque sino no encuentra los include dentro de osvvm.pro
+        cd "../../../OsvvmLibraries/osvvm"
+        source "osvvm.pro"
+    este archivo se encarga de compilar las librerias de osvvm (MemoryPkg.vhd, MemorySupportPkg.vhd. AlertLogPkg.vhd entre otros)
+11- Ir al directorio sim/  y ejecutar la compulacion y simulacion desde alli (por los path)
+
 
