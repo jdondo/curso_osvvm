@@ -4,26 +4,53 @@
 # ============================================================
 
 # ------------------------------------------------------------
-# Start OSVVM / Questa environment
+# Paths
 # ------------------------------------------------------------
 
-source "../../../OsvvmLibraries/Scripts/StartQuesta.tcl"
-source "../../../OsvvmLibraries/Scripts/VendorScripts_Questa.tcl"
-source "../../../OsvvmLibraries/Scripts/StartUp.tcl"
+set PROJECT_ROOT "<your_directory>/osvvm/curso/mem"
+set SIM_DIR      "$PROJECT_ROOT/sim"
+
+set OSVVM_ROOT      "<your_directory/osvvm/OsvvmLibraries"
+set OSVVM_SCRIPT_DIR "$OSVVM_ROOT/Scripts"
+
+# ------------------------------------------------------------
+# Go to simulation directory
+# ------------------------------------------------------------
+
+cd "$SIM_DIR"
+
+# ------------------------------------------------------------
+# Clean project work library
+# ------------------------------------------------------------
+
+if {[file exists "$SIM_DIR/work"]} {
+    vdel -lib "$SIM_DIR/work" -all
+}
+
+# ------------------------------------------------------------
+# Create project work library
+# ------------------------------------------------------------
+
+vlib "$SIM_DIR/work"
+vmap work "$SIM_DIR/work"
+
+# ------------------------------------------------------------
+# Start OSVVM environment
+# ------------------------------------------------------------
+
+source "$OSVVM_SCRIPT_DIR/StartUp.tcl"
 
 # ------------------------------------------------------------
 # Compile OSVVM
 # ------------------------------------------------------------
 
- cd "../../../OsvvmLibraries/osvvm"
-
-source "osvvm.pro"
+build "$OSVVM_ROOT/osvvm/osvvm.pro"
 
 # ------------------------------------------------------------
-# Create / select working directory
+# Return to project simulation directory
 # ------------------------------------------------------------
 
-cd "../../curso/mem/sim"
+cd "$SIM_DIR"
 
 # ------------------------------------------------------------
 # Compile RAM design
@@ -50,16 +77,3 @@ vcom -2008 ../tb/ram_test.vhd
 
 vcom -2008 ../tb/ram_tb.vhd
 
-# ------------------------------------------------------------
-# Show libraries
-# ------------------------------------------------------------
-
-vmap
-
-# ------------------------------------------------------------
-# Done
-# ------------------------------------------------------------
-
-echo "=========================================="
-echo " Compilation completed successfully"
-echo "=========================================="
