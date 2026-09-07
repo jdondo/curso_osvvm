@@ -1,1 +1,78 @@
+En este Ejercicio agregaremos un test ramdom al ejemplo de la memoria
+1- Agregamos en ram_test.vhd
 
+    use osvvm.RandomPkg.all;
+    
+    y en el TestProc : process
+    agregamos la variable
+    
+    variable RV : RandomPType;
+    
+    Luego agregamos el siguiente test donde primero escribiremos datos aleatorios en direcciones aleatorias y luego leeremos y chequearemos resultados
+    ------------------------------------------------
+    -- TEST 5
+    -- Random memory operations
+    ------------------------------------------------
+    
+    Report("TEST 5: Random memory operations");
+    
+    for i in 0 to 999 loop
+    
+        -- Generate random address and data
+    
+        address := RV.RandSlv(ADDR_WIDTH);
+        data    := RV.RandSlv(DATA_WIDTH);
+    
+        if (i mod 2) = 0 then
+            ------------------------------------------------
+            -- WRITE
+            ------------------------------------------------
+    
+            RamWrite(
+                clk     => clk,
+                wr_en   => wr_en,
+                rd_en   => rd_en,
+                addr    => addr,
+                wr_data => wr_data,
+                address => address,
+                data    => data
+            );
+    
+            MemWrite(
+                MemoryID,
+                address,
+                data
+            );
+    
+        else  
+            ------------------------------------------------
+            -- READ
+            ------------------------------------------------
+    
+            RamRead(
+                clk     => clk,
+                wr_en   => wr_en,
+                rd_en   => rd_en,
+                addr    => addr,
+                wr_data => wr_data,
+                rd_data => rd_data,
+                address => address,
+                data    => actual
+            );
+    
+            MemRead(
+                MemoryID,
+                address,
+                expected
+            );
+           ------chequeamos resultados-------------------------------
+            AffirmIfEqual(
+                actual,
+                expected,
+                "Random memory check"
+            );
+    
+        end if;    
+    end loop;
+
+2- Compilamos y simulamos
