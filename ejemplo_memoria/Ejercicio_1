@@ -1,0 +1,64 @@
+En este ejercicio verificaremos una memoria ram de 1kx32 usando las librerias de osvvm
+
+1- Crear el directorio curso/ dentro de osvvm, al mismo nivel que el directorio OsvvmLibraries
+2- Crear el directorio mem/ en curso/
+3- Crear los directorios rtl/ sim/ tb/ dentro de mem/
+4- En rtl/ guardar el ram.vhd (diseño a verificar)
+5- crear el ram_pkg.vhd con las constantes de tamaño de buses, guardarlo en tb/
+6- crear el ram_bfm.vhd con los procedures ramwrite y ramread, guardarlo en tb/
+7- crear el ram_test.vhd creando una entidad (igual que la del rtl), llamando a la library osvvm y dentro de esta a memoryPkg y AlertLogPkg , guardarlo en tb/ 
+    El paquete memory_pkg utiliza el modelo de referencia para comparar las transacciones de lectura y de escritura que estan ya definidos en las librerias de osvvm
+    El paquete AlertLogPkg genera las alertas que seran mostradas en la ejecucion del test.
+8- En este archivo ram_test.vhd vamos a generar cuatro tests:
+    test1: Escribir valores conocidos
+    test2: lectura y comparacion de los valores leidos
+    test3: Escribir la memoria completa
+    test4: Leer la memoria completa
+    
+9- crear el tb instanciando la entidad del dut y la del test, guardarlo en tb/
+10- En el directorio sim/ Crear el compile.do para questa incluyendo los scripts tcl necesarios para el simulador Questa y para compilar las librerias de osvvm
+    a- 
+        # ------------------------------------------------------------
+        # Paths
+        # ------------------------------------------------------------
+            set OSVVM_ROOT      "<tu_directorio</osvvm/OsvvmLibraries"
+            set OSVVM_SCRIPT_DIR "$OSVVM_ROOT/Scripts"
+        # ------------------------------------------------------------
+        # Start OSVVM environment
+        # ------------------------------------------------------------
+            source "$OSVVM_SCRIPT_DIR/StartUp.tcl"
+        # ------------------------------------------------------------
+        # Compile OSVVM
+        # ------------------------------------------------------------    
+            build "$OSVVM_ROOT/OsvvmLibraries.pro"
+
+    b- Luego agregamos el directorio de simulacion y el mapeo de la libreria work
+        # ------------------------------------------------------------
+        # Go to simulation directory
+        # ------------------------------------------------------------
+            set PROJECT_ROOT "<tu_directorio>/curso/mem"
+            set SIM_DIR      "$PROJECT_ROOT/sim"
+            cd "$SIM_DIR"
+        # ------------------------------------------------------------
+        # Clean project work library
+        # ------------------------------------------------------------
+            if {[file exists "$SIM_DIR/work"]} {
+                vdel -lib "$SIM_DIR/work" -all
+            }
+        # ------------------------------------------------------------
+        # Create project work library
+        # ------------------------------------------------------------
+            vlib "$SIM_DIR/work"
+            vmap work "$SIM_DIR/work"
+        
+    c- Compilamos los archivos .vhd usando 
+            vcom -2008 ../rtl/ram.vhd
+            vcom -s008 ../tb/ram-pkg.vhd
+            .
+            .
+            .
+11-  Crear el run.do en sim/
+        
+12- Ir al directorio sim/  y ejecutar la compilacion y simulacion desde alli
+
+
