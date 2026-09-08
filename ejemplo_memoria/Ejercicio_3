@@ -1,0 +1,44 @@
+Para este ejercicio agregaremos al ram_test.vhd la libreria CoveragePkg de osvvm para analizar si se han cubierto todas las direcciones de nuestra memoria en los procesos de escritura y lectura
+
+use osvvm.CoveragePkg.all;
+
+agregaremos dentro de testproc: process la variable
+variable AddressCov : CoverageIDType;
+
+y dentro del proceso
+  AddressCov:= NewID("AddressCov");
+
+  AddBins(AddressCov,1024, GenBin(0, 1023, 16));
+donde 
+  AddressCov es el Obejto de cobertura
+  Addbins agrega bins al modelo de covertura 
+  1024 indica la cantidad de direcciones a cubrir (en este caso)
+  GenBIn(0,1023,16) indica GenBin(INICIO, FIN, CANTIDAD) de bins
+
+Luego en el test 5 de generacion aleatoria de direcciones agregamos luego de cada address creada
+  ICover(AddressCov, to_integer(unsigned(address)));
+
+luego, al finalizar el loop del test 
+
+ Report("Address coverage = " &
+        real'image(GetCov(AddressCov)));
+        Writebin(AddressCov);
+esto mostrara algo asi como
+
+ %% WriteBin: AddressCov
+# %% Bin:(0 to 63)   Count = 625  AtLeast = 1024
+# %% Bin:(64 to 127)   Count = 626  AtLeast = 1024
+# %% Bin:(128 to 191)   Count = 627  AtLeast = 1024
+# %% Bin:(192 to 255)   Count = 626  AtLeast = 1024
+# %% Bin:(256 to 319)   Count = 627  AtLeast = 1024
+# %% Bin:(320 to 383)   Count = 624  AtLeast = 1024
+# %% Bin:(384 to 447)   Count = 623  AtLeast = 1024
+# %% Bin:(448 to 511)   Count = 625  AtLeast = 1024
+# %% Bin:(512 to 575)   Count = 625  AtLeast = 1024
+# %% Bin:(576 to 639)   Count = 625  AtLeast = 1024
+# %% Bin:(640 to 703)   Count = 625  AtLeast = 1024
+# %% Bin:(704 to 767)   Count = 622  AtLeast = 1024
+# %% Bin:(768 to 831)   Count = 625  AtLeast = 1024
+# %% Bin:(832 to 895)   Count = 625  AtLeast = 1024
+# %% Bin:(896 to 959)   Count = 625  AtLeast = 1024
+# %% Bin:(960 to 1023)   Count = 625  AtLeast = 1024
