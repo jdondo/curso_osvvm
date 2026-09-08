@@ -1,4 +1,4 @@
-En este ejercicio verificaremos una memoria ram de 1kx32 usando las librerias de osvvm
+En este ejercicio verificaremos una memoria ram de 1Kx32b usando las librerias de osvvm
 
 1- Crear el directorio curso/ dentro de osvvm, al mismo nivel que el directorio OsvvmLibraries
 2- Crear el directorio mem/ en curso/
