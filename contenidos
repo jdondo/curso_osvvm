@@ -1,21 +1,21 @@
 Contenidos 
 
-    Introducción a los testbenches y fundamentos de VHDL para verificación 
+    Introducción a los testbenches y fundamentos de VHDL para verificación  CRISTIAN
 
-    Subprogramas, bibliotecas y manejo de archivos 
+    Subprogramas, bibliotecas y manejo de archivos    CRISTIAN
 
-    Modelos basados en transacciones (Transaction-Based Models, TBM) y Bus Functional Models (BFM) 
+    Modelos basados en transacciones (Transaction-Based Models, TBM) y Bus Functional Models (BFM) JULIO
 
-    Componentes de una arquitectura de verificación basada en transacciones 
+    Componentes de una arquitectura de verificación basada en transacciones JULIO
 
-    Estructuras de datos para la verificación (records, tipos protegidos, scoreboards, colas, etc.) 
+    Estructuras de datos para la verificación (records, tipos protegidos, scoreboards, colas, etc.) CRISTIAN
 
-    Generación de pruebas dirigidas, algorítmicas y aleatorias restringidas 
+    Generación de pruebas dirigidas, algorítmicas y aleatorias restringidas CRISTIAN
 
-    Cobertura funcional y métricas de verificación 
+    Cobertura funcional y métricas de verificación JULIO
 
-    Sincronización, temporización y ejecución de modelos 
+    Sincronización, temporización y ejecución de modelos JULIO
 
-    Técnicas avanzadas de aleatorización y cobertura 
+    Técnicas avanzadas de aleatorización y cobertura JULIO
 
-    Planificación de la verificación y desarrollo de planes de prueba 
+    Planificación de la verificación y desarrollo de planes de prueba CRISTIAN
