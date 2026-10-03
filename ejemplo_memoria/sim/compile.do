@@ -1,21 +1,31 @@
 # ============================================================
 # OSVVM + RAM Testbench
-# QuestaSim 2023.4
+# QuestaSim 2026.2
 # ============================================================
 
 # ------------------------------------------------------------
 # Paths
 # ------------------------------------------------------------
 
-set PROJECT_ROOT "<your_directory>/osvvm/curso/mem"
-set SIM_DIR      "$PROJECT_ROOT/sim"
-
-set OSVVM_ROOT      "<your_directory/osvvm/OsvvmLibraries"
+set OSVVM_ROOT "/home/fpga/training/osvvm/OsvvmLibraries"
 set OSVVM_SCRIPT_DIR "$OSVVM_ROOT/Scripts"
+#-------------------------------------------------------------
+# Start OSVVM environment
+#-------------------------------------------------------------
+
+source "$OSVVM_SCRIPT_DIR/StartUp.tcl"
+#-------------------------------------------------------------
+# Compile OSVVM 
+#-------------------------------------------------------------
+
+build "$OSVVM_ROOT/OsvvmLibraries.pro"
+
 
 # ------------------------------------------------------------
 # Go to simulation directory
 # ------------------------------------------------------------
+set PROJECT_ROOT "/home/fpga/training/osvvm/curso_osvvm/ejemplo_memoria"
+set SIM_DIR      "$PROJECT_ROOT/sim"
 
 cd "$SIM_DIR"
 
@@ -34,17 +44,7 @@ if {[file exists "$SIM_DIR/work"]} {
 vlib "$SIM_DIR/work"
 vmap work "$SIM_DIR/work"
 
-# ------------------------------------------------------------
-# Start OSVVM environment
-# ------------------------------------------------------------
 
-source "$OSVVM_SCRIPT_DIR/StartUp.tcl"
-
-# ------------------------------------------------------------
-# Compile OSVVM
-# ------------------------------------------------------------
-
-build "$OSVVM_ROOT/osvvm/osvvm.pro"
 
 # ------------------------------------------------------------
 # Return to project simulation directory
@@ -56,24 +56,24 @@ cd "$SIM_DIR"
 # Compile RAM design
 # ------------------------------------------------------------
 
-vcom -2008 ../rtl/ram.vhd
+vcom  ../rtl/ram.vhd
 
 # ------------------------------------------------------------
 # Compile RAM packages
 # ------------------------------------------------------------
 
-vcom -2008 ../tb/ram_pkg.vhd
-vcom -2008 ../tb/ram_bfm.vhd
+vcom  ../tb/ram_pkg.vhd
+vcom  ../tb/ram_bfm.vhd
 
 # ------------------------------------------------------------
 # Compile RAM test
 # ------------------------------------------------------------
 
-vcom -2008 ../tb/ram_test.vhd
+vcom  ../tb/ram_test.vhd
 
 # ------------------------------------------------------------
 # Compile top testbench
 # ------------------------------------------------------------
 
-vcom -2008 ../tb/ram_tb.vhd
+vcom  ../tb/ram_tb.vhd
 
